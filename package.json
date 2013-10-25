@@ -1,0 +1,16 @@
+{
+  "name": "node-akamai-http-api",
+  "version": "0.1.0",
+  "main": "lib/akamai.js",
+  "author": "Kanstantsin Kamkou <kkamkou@gmail.com>",
+  "scripts": {
+    "test": "make test"
+  },
+  "dependencies": {
+    "request": "2.27.1"
+  },
+  "devDependencies": {
+    "should": "2.0.2",
+    "mocha": "1.13.0"
+  }
+}
