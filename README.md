@@ -1,5 +1,4 @@
-node-akamai-http-api
-====================
+# Akamai NetStorage HTTP API for the Node.js
 
 
 ## Initialization
