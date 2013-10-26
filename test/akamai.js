@@ -13,6 +13,8 @@ var path = require('path'),
 
 // config and the remote path for a file
 var pathRemoteFile = '/CODE/FILE.jpg',
+  pathRemoteDir = path.join(path.dirname(pathRemoteFile), 'AkamaiHttpApi'),
+  pathRemoteFileMtime = new Date(),
   config = {
     keyName: 'keyName',
     key: 'aLongString',
@@ -26,11 +28,12 @@ module.exports = {
     if (config.key === 'aLongString') {
       throw new Error('Please, change a config!');
     }
+    akamai.setConfig(config);
   },
 
   'Getters and Setters': {
     'setConfig()': function () {
-      akamai.setConfig(config).getConfig().should.eql(config);
+      akamai.getConfig().should.eql(config);
       akamai.getUri('/').should.eql('https://' + config.host + '/');
       akamai.setConfig({ssl: false}).getUri('/').should.eql('http://' + config.host + '/');
     },
@@ -109,6 +112,46 @@ module.exports = {
       }
     },
 
+    'download()': {
+      'File exists': function (done) {
+        var fs = require('fs'),
+          stream = fs.createWriteStream(path.join(__dirname, '_files', 'file_download.jpg'));
+
+        akamai.download(pathRemoteFile, stream, function (err, data) {
+          should.not.exist(err);
+          data.should.have.property('status');
+          data.status.should.be.eql(200);
+          done();
+        });
+      },
+      'File does not exist': function (done) {
+        var fs = require('fs'),
+            stream = fs.createWriteStream(path.join(__dirname, '_files', 'file_download_err.jpg'));
+
+        akamai.download('AnEpicFile.txt', stream, function (err) {
+          should.exist(err);
+          done();
+        });
+      }
+    },
+
+    'mtime()': {
+      'File exists': function (done) {
+        akamai.mtime(pathRemoteFile, pathRemoteFileMtime, function (err, data) {
+          should.not.exist(err);
+          data.should.have.property('status');
+          data.status.should.be.eql(200);
+          done();
+        });
+      },
+      'File does not exist': function (done) {
+        akamai.mtime('AnEpicFile.txt', new Date(), function (err) {
+          should.exist(err);
+          done();
+        });
+      }
+    },
+
     'stat()': {
       'File exists': function (done) {
         akamai.stat(pathRemoteFile, function (err, data) {
@@ -117,6 +160,7 @@ module.exports = {
           data.stat.should.have.properties(['file', 'attribs']);
           data.stat.file.should.be.instanceof(Array);
           data.stat.file[0].name.should.be.eql(path.basename(pathRemoteFile));
+          data.stat.file[0].mtime.should.be.eql(parseInt(pathRemoteFileMtime.getTime() / 1000, 10));
           done();
         });
       },
@@ -128,9 +172,60 @@ module.exports = {
       }
     },
 
+    'mkdir()': {
+      'Folder does not exist': function (done) {
+        akamai.mkdir(pathRemoteDir, function (err, data) {
+          should.not.exist(err);
+          data.should.have.property('status');
+          data.status.should.be.eql(200);
+          done();
+        });
+      },
+      'Folder exists': function (done) {
+        akamai.mkdir(pathRemoteDir, function (err) {
+          should.exist(err);
+          done();
+        });
+      }
+    },
+
+    'rmdir()': {
+      'Folder exists': function (done) {
+        akamai.rmdir(pathRemoteDir, function (err, data) {
+          should.not.exist(err);
+          data.should.have.property('status');
+          data.status.should.be.eql(200);
+          done();
+        });
+      },
+      'Folder does not exist': function (done) {
+        akamai.rmdir(pathRemoteDir, function (err) {
+          should.exist(err);
+          done();
+        });
+      }
+    },
+
+    'rename()': {
+      'File exists': function (done) {
+        akamai.rename(pathRemoteFile, pathRemoteFile + '.renamed', function (err, data) {
+          should.not.exist(err);
+          data.should.have.property('status');
+          data.status.should.be.eql(200);
+          done();
+        });
+      },
+      'File does not exist': function (done) {
+        akamai.rename(pathRemoteFile, pathRemoteFile + '.renamed', function (err) {
+          should.exist(err);
+          done();
+        });
+      }
+    },
+
     'delete()': {
       'File exists': function (done) {
-        akamai.delete(pathRemoteFile, function (err, data) {
+        akamai.delete(pathRemoteFile + '.renamed', function (err, data) {
           should.not.exist(err);
           data.should.have.property('status');
           data.status.should.be.eql(200);
@@ -139,7 +234,7 @@ module.exports = {
       },
 
       'File does not exist': function (done) {
-        akamai.delete(pathRemoteFile + 'gg', function (err) {
+        akamai.delete(pathRemoteFile + '.renamed', function (err) {
           should.exist(err);
           done();
         });
