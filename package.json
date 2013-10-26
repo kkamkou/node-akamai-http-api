@@ -7,7 +7,9 @@
     "test": "make test"
   },
   "dependencies": {
-    "request": "2.27.1"
+    "request": "2.27.*",
+    "lodash": "2.2.*",
+    "xml2js": "0.2.8"
   },
   "devDependencies": {
     "should": "2.0.2",
