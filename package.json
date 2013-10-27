@@ -1,5 +1,5 @@
 {
-  "name": "node-akamai-http-api",
+  "name": "akamai-http-api",
   "version": "0.1.1",
   "main": "./lib/akamai.js",
   "author": "Kanstantsin Kamkou <kkamkou@gmail.com>",
