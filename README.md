@@ -12,7 +12,7 @@ Akamai NetStorage HTTP API for the Node.js
 
 ## Initialization
 ```javascript
-var akamai = require('akamai');
+var akamai = require('akamai-http-api');
 akamai.setConfig({
   keyName: 'keyName',
   key: 'aLongString',
