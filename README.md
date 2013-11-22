@@ -5,7 +5,7 @@ Akamai NetStorage HTTP API for the Node.js
 ## Installation
 ```
 "dependencies": {
-  "akamai-http-api": "0.1.1"
+  "akamai-http-api": "0.2.*"
 }
 ```
 ```npm update```
