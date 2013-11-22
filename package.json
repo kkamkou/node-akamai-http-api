@@ -1,6 +1,6 @@
 {
   "name": "akamai-http-api",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "main": "./lib/akamai.js",
   "author": "Kanstantsin Kamkou <kkamkou@gmail.com>",
   "description": "Akamai NetStorage HTTP API for the Node.js",
@@ -26,7 +26,7 @@
     "xml2js": "0.2.8"
   },
   "devDependencies": {
-    "should": "2.0.2",
-    "mocha": "1.13.0"
+    "should": "2.1.*",
+    "mocha": "1.14.0"
   }
 }
