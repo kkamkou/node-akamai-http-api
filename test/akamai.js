@@ -172,6 +172,41 @@ module.exports = {
       }
     },
 
+    'fileExists()': {
+      'File exists': function (done) {
+        akamai.fileExists(pathRemoteFile, function (err, data) {
+          should.not.exist(err);
+          data.should.be.true;
+          done();
+        });
+      },
+      'File does not exist': function (done) {
+        akamai.fileExists('AnEpicFile.txt', function (err, data) {
+          should.not.exist(err);
+          data.should.be.false;
+          done();
+        });
+      }
+    },
+
+    'symlink()': {
+      'File exists': function (done) {
+        akamai.symlink(pathRemoteFile, pathRemoteFile + '.symlink', function (err, data) {
+          akamai.delete(pathRemoteFile + '.symlink');
+          should.not.exist(err);
+          data.should.have.property('status');
+          data.status.should.be.eql(200);
+          done();
+        });
+      },
+      'File does not exist': function (done) {
+        akamai.symlink(pathRemoteFile + '.fake', pathRemoteFile + '.symlink', function (err) {
+          should.exist(err);
+          done();
+        });
+      }
+    },
+
     'mkdir()': {
       'Folder does not exist': function (done) {
         akamai.mkdir(pathRemoteDir, function (err, data) {

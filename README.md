@@ -5,7 +5,7 @@ Akamai NetStorage HTTP API for the Node.js
 ## Installation
 ```
 "dependencies": {
-  "akamai-http-api": "0.1.1"
+  "akamai-http-api": "0.2.*"
 }
 ```
 ```npm update```
@@ -68,6 +68,46 @@ akamai.rmdir('/12345/MyFolder', function (err, data) {});
 #### rename
 ```javascript
 akamai.rename('/12345/MyFile.jpg', '/12345/MyFileNew.jpg', function (err, data) {});
+```
+#### symlink
+```javascript
+akamai.symlink('/12345/MyFile.jpg', '/12345/MyFileSymlink.jpg', function (err, data) {});
+```
+
+### Helpers
+#### fileExists
+```javascript
+akamai.fileExists('/12345/MyFile.jpg', function (err, boolFlag) {});
+```
+
+### How to extend it?
+```javascript
+var akamai = require('akamai-http-api'),
+  _ = require('lodash'),
+  myAkamai = Object.create(akamai);
+
+// custom headers for the upload function
+myAkamai.upload = function (stream, path, custHeaders, cb) {
+  var options = {
+    request: {method: 'put'},
+    headers: _.extend({action: 'upload', 'upload-type': 'binary'}, custHeaders)
+  };
+  stream.pipe(this.getRequestObject(path, options, cb));
+  return this;
+};
+
+// quick-delete function (you should enable it first!)
+myAkamai.quickDelete = function (path, cb) {
+  var options = {
+    request: {method: 'put'},
+    headers: {action: 'quick-delete', 'quick-delete': 'imreallyreallysure'}
+  };
+  this.getRequestObject(path, options, cb);
+  return this;
+};
+
+// exporting outside
+module.exports = myAkamai;
 ```
 
 ## License
