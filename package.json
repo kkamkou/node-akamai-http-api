@@ -1,6 +1,6 @@
 {
   "name": "akamai-http-api",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "./lib/akamai.js",
   "author": "Kanstantsin Kamkou <kkamkou@gmail.com>",
   "description": "Akamai NetStorage HTTP API for the Node.js",
