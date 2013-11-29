@@ -19,10 +19,11 @@ var pathRemoteFile = '/CODE/FILE.jpg',
     keyName: 'keyName',
     key: 'aLongString',
     host: 'changeme.akamaihd.net',
-    ssl: true
+    ssl: true,
+    verbose: false
   };
 
-// test
+// tests
 module.exports = {
   before: function () {
     if (config.key === 'aLongString') {
@@ -32,19 +33,29 @@ module.exports = {
   },
 
   'Getters and Setters': {
-    'setConfig()': function () {
+    'Config set-up': function () {
       akamai.getConfig().should.eql(config);
       akamai.getUri('/').should.eql('https://' + config.host + '/');
       akamai.setConfig({ssl: false}).getUri('/').should.eql('http://' + config.host + '/');
     },
 
-    'getUniqueId()': function () {
+    'Unique Id generation': function () {
       var out = [], i, curr;
       for (i = 0; i <= 1000; i++) {
         curr = akamai.getUniqueId();
         out.should.not.include(curr);
         out.push(curr);
       }
+    },
+
+    'Verbosity check': function (done) {
+      var clone = Object.create(akamai);
+      clone.setConfig({key: 'invalidKey', verbose: true})
+        .du(path.dirname(pathRemoteFile), function (err) {
+          should.exist(err);
+          err.message.should.include("You don't have permission to access");
+          done();
+        });
     }
   },
 
@@ -191,12 +202,13 @@ module.exports = {
 
     'symlink()': {
       'File exists': function (done) {
-        akamai.symlink(pathRemoteFile, pathRemoteFile + '.symlink', function (err, data) {
-          akamai.delete(pathRemoteFile + '.symlink');
-          should.not.exist(err);
-          data.should.have.property('status');
-          data.status.should.be.eql(200);
-          done();
+        akamai.delete(pathRemoteFile + '.symlink', function () {
+          akamai.symlink(pathRemoteFile, pathRemoteFile + '.symlink', function (err, data) {
+            should.not.exist(err);
+            data.should.have.property('status');
+            data.status.should.be.eql(200);
+            done();
+          });
         });
       },
       'File does not exist': function (done) {
