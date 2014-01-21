@@ -81,6 +81,10 @@ akamai.symlink('/12345/MyFile.jpg', '/12345/MyFileSymlink.jpg', function (err, d
 akamai.fileExists('/12345/MyFile.jpg', function (err, boolFlag) {});
 ```
 
+### Notices
+1. You have to enable the netstorage HTTP API access using the control.akamai.com website
+2. Ensure there are no more than 15 operations/second on netstorage, otherwise you can expect netstorage to serve 500 errors.
+
 ### How to extend it?
 ```javascript
 var akamai = require('akamai-http-api'),
@@ -132,5 +136,3 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/kkamkou/node-akamai-http-api/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
