@@ -82,7 +82,7 @@ akamai.fileExists('/12345/MyFile.jpg', function (err, boolFlag) {});
 ```
 
 ### Notices
-1. You have to enable the netstorage HTTP API access using the control.akamai.com website
+1. You have to [enable the netstorage HTTP API](https://control.akamai.com/dl/customers/NS/NetStrgHttpCM.pdf) access using the control.akamai.com website
 2. Ensure there are no more than 15 operations/second on netstorage, otherwise you can expect netstorage to serve 500 errors.
 
 ### How to extend it?
