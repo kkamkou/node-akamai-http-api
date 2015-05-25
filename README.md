@@ -5,7 +5,7 @@ Akamai NetStorage HTTP API for the Node.js
 ## Installation
 ```
 "dependencies": {
-  "akamai-http-api": "0.2.1"
+  "akamai-http-api": "0.2.2"
 }
 ```
 ```npm update```
@@ -115,10 +115,16 @@ myAkamai.quickDelete = function (path, cb) {
 module.exports = myAkamai;
 ```
 
+## Docker
+```sh
+[sudo] docker build -t node-akamai-http-api .
+[sudo] docker run -ti --rm node-akamai-http-api
+```
+
 ## License
 The MIT License (MIT)
 
-Copyright (c) 2013 Kanstantsin Kamkou
+Copyright (c) 2013-2015 Kanstantsin Kamkou
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
