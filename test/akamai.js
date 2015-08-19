@@ -52,8 +52,8 @@ module.exports = {
       var clone = Object.create(akamai);
       clone.setConfig({key: 'invalidKey', verbose: true})
         .du(path.dirname(pathRemoteFile), function (err) {
-          should.exist(err);
           err.message.should.include("You don't have permission to access");
+          err.message.should.include(403);
           done();
         });
     }
@@ -73,7 +73,7 @@ module.exports = {
 
       'Folder does not exist': function (done) {
         akamai.du('AnEpicFolder', function (err) {
-          should.exist(err);
+          err.message.should.include(404);
           done();
         });
       }
@@ -93,7 +93,7 @@ module.exports = {
 
       'Folder does not exist': function (done) {
         akamai.dir('AnEpicFolder', function (err) {
-          should.exist(err);
+          err.message.should.include(404);
           done();
         });
       }
@@ -117,7 +117,7 @@ module.exports = {
           stream = fs.createReadStream(path.join(__dirname, '_files', 'file.jpg'));
 
         akamai.upload(stream, '/1234', function (err) {
-          should.exist(err);
+          err.message.should.include(404);
           done();
         });
       }
@@ -140,7 +140,7 @@ module.exports = {
             stream = fs.createWriteStream(path.join(__dirname, '_files', 'file_download_err.jpg'));
 
         akamai.download('AnEpicFile.txt', stream, function (err) {
-          should.exist(err);
+          err.message.should.include(404);
           done();
         });
       }
@@ -157,7 +157,7 @@ module.exports = {
       },
       'File does not exist': function (done) {
         akamai.mtime('AnEpicFile.txt', new Date(), function (err) {
-          should.exist(err);
+          err.message.should.include(404);
           done();
         });
       }
@@ -177,7 +177,7 @@ module.exports = {
       },
       'File does not exist': function (done) {
         akamai.stat('AnEpicFile.txt', function (err) {
-          should.exist(err);
+          err.message.should.include(404);
           done();
         });
       }
@@ -213,7 +213,7 @@ module.exports = {
       },
       'File does not exist': function (done) {
         akamai.symlink(pathRemoteFile + '.fake', pathRemoteFile + '.symlink', function (err) {
-          should.exist(err);
+          err.message.should.include(409);
           done();
         });
       }
@@ -230,7 +230,7 @@ module.exports = {
       },
       'Folder exists': function (done) {
         akamai.mkdir(pathRemoteDir, function (err) {
-          should.exist(err);
+          err.message.should.include(409);
           done();
         });
       }
@@ -247,7 +247,7 @@ module.exports = {
       },
       'Folder does not exist': function (done) {
         akamai.rmdir(pathRemoteDir, function (err) {
-          should.exist(err);
+          err.message.should.include(404);
           done();
         });
       }
@@ -264,7 +264,7 @@ module.exports = {
       },
       'File does not exist': function (done) {
         akamai.rename(pathRemoteFile, pathRemoteFile + '.renamed', function (err) {
-          should.exist(err);
+          err.message.should.include(404);
           done();
         });
       }
@@ -282,7 +282,7 @@ module.exports = {
 
       'File does not exist': function (done) {
         akamai.delete(pathRemoteFile + '.renamed', function (err) {
-          should.exist(err);
+          err.message.should.include(404);
           done();
         });
       }
