@@ -5,7 +5,7 @@ Akamai NetStorage HTTP API for the Node.js
 ## Installation
 ```
 "dependencies": {
-  "akamai-http-api": "0.2.2"
+  "akamai-http-api": "0.3.*"
 }
 ```
 ```npm update```
@@ -85,6 +85,20 @@ akamai.symlink('/12345/MyFile.jpg', '/12345/MyFileSymlink.jpg', function (err, d
 akamai.fileExists('/12345/MyFile.jpg', function (err, boolFlag) {});
 ```
 
+### Exceptions
+For the communication netstorage HTTP API uses [HTTP codes](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html).
+Hence, a number of methods may trigger an exception. For example `mkdir` in case the target already exists.
+Or `symlink` in case the target doesn't exist.
+
+To handle these exceptions the `err` object has an abnormal `code` attribute.
+
+```javascript
+akamai.mkdir('...', function (err, data) {
+  if (err.code === 409) { } // it already exists
+  if (err.message.indexOf(409) !== -1) // the same
+});
+```
+
 ### How to extend it?
 ```javascript
 var akamai = require('akamai-http-api'),
@@ -117,6 +131,7 @@ module.exports = myAkamai;
 
 ## Docker
 ```sh
+# modify test/akamai.js#15 first
 [sudo] docker build -t node-akamai-http-api .
 [sudo] docker run -ti --rm node-akamai-http-api
 ```

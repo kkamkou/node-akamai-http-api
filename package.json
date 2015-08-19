@@ -1,10 +1,10 @@
 {
   "name": "akamai-http-api",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "main": "./lib/akamai.js",
   "author": "Kanstantsin Kamkou <kkamkou@gmail.com>",
   "description": "Akamai NetStorage HTTP API for the Node.js",
-  "keywords": ["akamai", "api", "http"],
+  "keywords": ["akamai", "api", "http", "netstorage"],
   "repository" : {
     "type" : "git",
     "url" : "https://github.com/kkamkou/node-akamai-http-api.git"
