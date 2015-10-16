@@ -1,11 +1,11 @@
 node-akamai-http-api
 ====================
-Akamai NetStorage HTTP API for the Node.js
+Akamai NetStorage HTTP API for Node.js
 
 ## Installation
 ```
 "dependencies": {
-  "akamai-http-api": "0.3.*"
+  "akamai-http-api": "0.4.*"
 }
 ```
 ```npm update```
@@ -17,14 +17,18 @@ akamai.setConfig({
   keyName: 'keyName',
   key: 'aLongString',
   host: 'changeme.akamaihd.net',
-  ssl: true,
-  verbose: false
+  ssl: true, // optional, default: false
+  verbose: false, // optional, default: false
+  request: { // optional, request.js options, see: https://github.com/request/request#requestoptions-callback
+    timeout: 20000 // 20s is the dafault value
+  }
 });
 ```
 
 ### Notices
 1. You have to [enable the netstorage HTTP API](https://control.akamai.com/dl/customers/NS/NetStrgHttpCM.pdf) access using the control.akamai.com website
 2. Ensure there are no more than 15 operations/second on netstorage, otherwise you can expect netstorage to serve 500 errors.
+3. Double check the `host` value. In case of typo (fe: `test.upload.akamai.com`), the client just sits there trying to open up a socket. Default timeout is `20s`.
 
 ## API
 ### Advanced
@@ -131,7 +135,7 @@ module.exports = myAkamai;
 
 ## Docker
 ```sh
-# modify test/akamai.js#15 first
+# modify test/akamai.js#19-21 first
 [sudo] docker build -t node-akamai-http-api .
 [sudo] docker run -ti --rm node-akamai-http-api
 ```

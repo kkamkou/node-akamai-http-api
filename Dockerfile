@@ -1,4 +1,4 @@
-FROM google/nodejs
+FROM node:latest
 WORKDIR /opt
 ADD package.json ./
 RUN npm install

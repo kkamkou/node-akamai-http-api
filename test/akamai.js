@@ -20,7 +20,8 @@ var pathRemoteFile = '/CODE/FILE.jpg',
     key: 'aLongString',
     host: 'changeme.akamaihd.net',
     ssl: true,
-    verbose: false
+    verbose: false,
+    request: {timeout: 20000}
   };
 
 // tests
@@ -32,7 +33,7 @@ module.exports = {
     akamai.setConfig(config);
   },
 
-  'Getters and Setters': {
+  'Core functionality': {
     'Config set-up': function () {
       akamai.getConfig().should.eql(config);
       akamai.getUri('/').should.eql('https://' + config.host + '/');
@@ -46,6 +47,16 @@ module.exports = {
         out.should.not.include(curr);
         out.push(curr);
       }
+    },
+
+    'Timeout': function () {
+      var clone = Object.create(akamai);
+      clone.setConfig({host: 'test.upload.akamai.com', request: {timeout: 1000}})
+        .du('/', function (err, result) {
+          should.not.exist(result);
+          err.should.be.an.instanceof(Error);
+          err.code.should.eql('ETIMEDOUT');
+        });
     },
 
     'Verbosity check': function (done) {
