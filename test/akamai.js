@@ -49,13 +49,14 @@ module.exports = {
       }
     },
 
-    'Timeout': function () {
+    'Timeout': function (done) {
       var clone = Object.create(akamai);
       clone.setConfig({host: 'test.upload.akamai.com', request: {timeout: 1000}})
         .du('/', function (err, result) {
           should.not.exist(result);
           err.should.be.an.instanceof(Error);
           err.code.should.eql('ETIMEDOUT');
+          done();
         });
     },
 
