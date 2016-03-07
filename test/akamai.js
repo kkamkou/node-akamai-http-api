@@ -13,6 +13,7 @@ var path = require('path'),
 
 // config and the remote path for a file
 var pathRemoteFile = '/CODE/FILE.jpg',
+  pathRemoteGZFile = '/CODE/FILE.txt.gz',
   pathRemoteDir = path.join(path.dirname(pathRemoteFile), 'AkamaiHttpApi'),
   pathRemoteFileMtime = new Date(),
   config = {
@@ -155,6 +156,30 @@ module.exports = {
       'File does not exist': function (done) {
         var fs = require('fs'),
             stream = fs.createWriteStream(path.join(__dirname, '_files', 'file_download_err.jpg'));
+
+        akamai.download('AnEpicFile.txt', stream, function (err) {
+          err.message.should.include(404);
+          err.code.should.eql(404);
+          done();
+        });
+      }
+    },
+
+    'gzdownload()': {
+      'File exists': function (done) {
+        var fs = require('fs'),
+          stream = fs.createWriteStream(path.join(__dirname, '_files', 'file_download.txt'));
+
+        akamai.download(pathRemoteGZFile, stream, function (err, data) {
+          should.not.exist(err);
+          data.should.have.property('status');
+          data.status.should.be.eql(200);
+          done();
+        });
+      },
+      'File does not exist': function (done) {
+        var fs = require('fs'),
+            stream = fs.createWriteStream(path.join(__dirname, '_files', 'file_download_err.txt'));
 
         akamai.download('AnEpicFile.txt', stream, function (err) {
           err.message.should.include(404);
