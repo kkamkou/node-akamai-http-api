@@ -3,4 +3,4 @@
 --ui exports
 --check-leaks
 --bail
---timeout 5000
+--timeout 10000
