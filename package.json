@@ -17,7 +17,7 @@
     "test": "node_modules/.bin/mocha"
   },
   "dependencies": {
-    "lodash": "4.15.0",
+    "lodash": "~4.16",
     "request": "2.74.0",
     "xml2js": ">=0.4.16"
   },
