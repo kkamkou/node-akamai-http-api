@@ -144,4 +144,4 @@ module.exports = myAkamai;
 
 ## License
 The MIT License (MIT)  
-Copyright (c) 2013-2016 Kanstantsin Kamkou
+Copyright (c) 2013-2017 Kanstantsin Kamkou
