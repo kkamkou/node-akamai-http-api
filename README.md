@@ -1,17 +1,19 @@
 node-akamai-http-api
 ====================
 Akamai NetStorage HTTP API for Node.js (Unofficial).  
-Official library [might be found here](https://github.com/akamai-open/NetStorageKit-Node) (though, the quality of this library is suspicious).
 
+[![Build Status](https://travis-ci.org/kkamkou/node-akamai-http-api.svg?branch=master)](https://travis-ci.org/kkamkou/node-akamai-http-api)
 [![Dependency Status](https://www.versioneye.com/user/projects/56eca2d34fb9b000127dc24e/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56eca2d34fb9b000127dc24e)
 [![Coverage Status](https://coveralls.io/repos/github/kkamkou/node-akamai-http-api/badge.svg?branch=master)](https://coveralls.io/github/kkamkou/node-akamai-http-api?branch=master)
 [![Code Climate](https://codeclimate.com/github/kkamkou/node-akamai-http-api/badges/gpa.svg)](https://codeclimate.com/github/kkamkou/node-akamai-http-api)
-[![Build Status](https://travis-ci.org/kkamkou/node-akamai-http-api.svg?branch=master)](https://travis-ci.org/kkamkou/node-akamai-http-api)
+
+* Official library [might be found here](https://github.com/akamai-open/NetStorageKit-Node)  
+(though, the quality of this library is suspicious).
 
 ## Installation
 ```
 "dependencies": {
-  "akamai-http-api": "0.5.*"
+  "akamai-http-api": "0.6.*" // see the "releases" section
 }
 ```
 ```npm update```
