@@ -1,0 +1,12 @@
+engines:
+  duplication:
+    enabled: false
+  eslint:
+    enabled: true
+  fixme:
+    enabled: true
+ratings:
+  paths:
+    - "lib/**.js"
+exclude_paths:
+  - test/

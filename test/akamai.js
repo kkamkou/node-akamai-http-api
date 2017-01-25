@@ -12,13 +12,13 @@ var path = require('path'),
   akamai = require(path.join('..', 'lib', 'akamai'));
 
 // config and the remote path for a file
-var pathRemoteFile = '/CODE/FILE.jpg',
+var pathRemoteFile = (process.env.AKAMAI_DIR || '/CODE') + '/FILE.jpg',
   pathRemoteDir = path.join(path.dirname(pathRemoteFile), 'AkamaiHttpApi'),
   pathRemoteFileMtime = new Date(),
   config = {
-    keyName: 'keyName',
-    key: 'aLongString',
-    host: 'changeme.akamaihd.net',
+    keyName: process.env.AKAMAI_KEY_NAME || 'keyName',
+    key: process.env.AKAMAI_KEY || 'aLongString',
+    host: process.env.AKAMAI_HOST || 'changeme.akamaihd.net',
     ssl: true,
     verbose: false,
     request: {timeout: 20000}
@@ -76,11 +76,12 @@ module.exports = {
   'API functions': {
     'du()': {
       'Folder exists': function (done) {
-        akamai.du(path.dirname(pathRemoteFile), function (err, data) {
+        var fnc = akamai.du(path.dirname(pathRemoteFile), function (err, data) {
           should.not.exist(err);
           data.should.have.property('du');
           data.du.should.have.properties(['du-info', 'attribs']);
           data.du['du-info'][0].should.have.properties(['files', 'bytes']);
+          fnc.dir.should.be.a.Function;
           done();
         });
       },
@@ -165,6 +166,13 @@ module.exports = {
     },
 
     'mtime()': {
+      'Incorrect argument': function (done) {
+        akamai.mtime(pathRemoteFile, (new Date()).toString(), function (err, data) {
+          err.should.be.instanceOf(TypeError);
+          should.not.exist(data);
+          done();
+        });
+      },
       'File exists': function (done) {
         akamai.mtime(pathRemoteFile, pathRemoteFileMtime, function (err, data) {
           should.not.exist(err);
