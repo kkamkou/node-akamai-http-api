@@ -1,6 +1,9 @@
 language: node_js
 node_js:
+  - "4.7"
   - "5.12"
+  - "6.9"
+  - "7.4"
 notifications:
   slack:
     on_success: never
