@@ -4,27 +4,32 @@
   "main": "./lib/akamai.js",
   "author": "Kanstantsin Kamkou <kkamkou@gmail.com>",
   "description": "Akamai NetStorage HTTP API for Node.js",
-  "keywords": ["akamai", "api", "http", "netstorage"],
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/kkamkou/node-akamai-http-api.git"
+  "keywords": [
+    "akamai",
+    "api",
+    "http",
+    "netstorage"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kkamkou/node-akamai-http-api.git"
   },
-  "bugs" : {
-    "url" : "https://github.com/kkamkou/node-akamai-http-api/issues"
+  "bugs": {
+    "url": "https://github.com/kkamkou/node-akamai-http-api/issues"
   },
-  "license" : "MIT",
+  "license": "MIT",
   "scripts": {
     "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "dependencies": {
-    "lodash": "~4.16",
-    "request": "~2.78",
+    "lodash": "^4.17.11",
+    "request": "^2.88.0",
     "xml2js": ">=0.4.16"
   },
   "devDependencies": {
-    "coveralls": "~2.11",
+    "coveralls": "^3.0.3",
     "istanbul": "~0.4.3",
-    "mocha": "~3.1",
+    "mocha": "^6.1.4",
     "should": "~11.1"
   }
 }
