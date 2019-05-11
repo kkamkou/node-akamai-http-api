@@ -28,7 +28,7 @@ var pathRemoteFile = (process.env.AKAMAI_DIR || '/CODE') + '/FILE.jpg',
 module.exports = {
   before: function () {
     if (config.key === 'aLongString') {
-      throw new Error('Please, change a config!');
+      throw new Error('Please change the config file first!');
     }
     akamai.setConfig(config);
   },

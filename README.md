@@ -3,7 +3,6 @@ node-akamai-http-api
 Akamai NetStorage HTTP API for Node.js (Unofficial).  
 
 [![Build Status](https://travis-ci.org/kkamkou/node-akamai-http-api.svg?branch=master)](https://travis-ci.org/kkamkou/node-akamai-http-api)
-[![Dependency Status](https://www.versioneye.com/user/projects/56eca2d34fb9b000127dc24e/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56eca2d34fb9b000127dc24e)
 [![Coverage Status](https://coveralls.io/repos/github/kkamkou/node-akamai-http-api/badge.svg?branch=master)](https://coveralls.io/github/kkamkou/node-akamai-http-api?branch=master)
 [![Code Climate](https://codeclimate.com/github/kkamkou/node-akamai-http-api/badges/gpa.svg)](https://codeclimate.com/github/kkamkou/node-akamai-http-api)
 
@@ -141,6 +140,7 @@ myAkamai.quickDelete = function (path, cb) {
 module.exports = myAkamai;
 ```
 
+# Tests
 ## Docker
 ```sh
 # modify test/akamai.js#19-21 first
@@ -148,6 +148,16 @@ module.exports = myAkamai;
 [sudo] docker run -ti --rm node-akamai-http-api
 ```
 
-## License
-The MIT License (MIT)  
-Copyright (c) 2013-2017 Kanstantsin Kamkou
+## NVM
+```sh
+export AKAMAI_KEY_NAME="key_name"
+export AKAMAI_KEY="key"
+export AKAMAI_HOST="domain.akamaihd.net"
+nvm install [6, 8, 10, 12, etc.]
+npm install
+npm test
+```
+
+#### License
+
+[MIT](LICENSE)
